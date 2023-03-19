@@ -23,7 +23,7 @@ def main():
 
     baudrate = 64000000  # The pi can be very fast!
 
-    # Create the ST7789 state:
+    # Create the ST7789 display:
     display = st7789.ST7789(
         board.SPI(),
         cs=cs_pin,
