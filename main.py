@@ -4,6 +4,7 @@
 import board
 import digitalio
 import logging
+import shutil
 import subprocess
 
 from adafruit_rgb_display.st7789 import ST7789
@@ -47,6 +48,12 @@ class Screen:
         self.draw.text((x, y), text, (255, 255, 255), self.font)
 
 
+def get_disk_space() -> float:
+    total, used, free = shutil.disk_usage('/mnt/backup')
+    available = free + used
+    return used/available
+
+
 class Job:
     def __init__(self):
         self.active = False
@@ -60,11 +67,13 @@ class Job:
     def refresh_display(self) -> None:
         while self.active:
             temp = self.cpu.temperature
+            space = get_disk_space()
 
             self.screen.draw.rectangle((0, 0, self.screen.image.width, self.screen.image.height), fill=(0, 0, 0), outline=(0, 0, 0))
 
             self.screen.write(f"IP: {self.ip}")
             self.screen.write(f"Temp.: {temp:.3f} °C", y=24)
+            self.screen.write(f"Disk: {space:.2f} %", y=48)
 
             self.screen.update()
 
