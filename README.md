@@ -1,4 +1,7 @@
-# Raspberry Pi Display
+# Mini DON
+
+_Mini Display Of Numbers_ is a simple python script, which displays some metrics of a raspberry pi on a connected display.
+The display in use is a mini PiTFT from Adafruit.
 
 ## Development
 
@@ -23,7 +26,7 @@ python3 -m pip install --upgrade --force-reinstall spidev
 If the display is already in use on the remote board you need to stop the running service.
 
 ```shell
-sudo systemctl stop stats.service
+sudo service minidon stop
 ```
 
 Don't forget to start it afterwards. A Reboot will also start the service again.
